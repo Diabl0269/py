@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Guessing game</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css"
+    />
+    <script type="text/javascript" src="/eel.js"></script>
+  </head>
+  <body
+    oncontextmenu="return false"
+    onselectstart="return false"
+    ondragstart="return false"
+    style="display: flex; flex-direction: column; align-items: center"
+  >
+    <input maxlength="1" />
+    <br />
+    <span>Please Insert a single character</span>
+    <br />
+    <button onclick="checkGuess()">Check guess</button>
+    <br />
+    <span id="result"></span>
+    <br />
+    <button onclick="initGame()">Initialize Game</button>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+    <script>
+      $(document).ready(() => {
+        checkGuess = async () => {
+          const value = $("input").val();
+          const userGuess = await eel.check_guess(value)();
+          if (userGuess) {
+            setGuess(userGuess);
+          }
+        };
+
+        initGame = async () => {
+          const userGuess = await eel.init_game()();
+          setGuess(userGuess);
+        };
+
+        const setGuess = (guess) => {
+          $("#result").html(guess);
+        };
+      });
+    </script>
+  </body>
+</html>

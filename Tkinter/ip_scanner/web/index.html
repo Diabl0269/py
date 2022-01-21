@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Network scanner</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css"
+    />
+    <script type="text/javascript" src="/eel.js"></script>
+  </head>
+  <body style="display: flex; flex-direction: column; align-items: center">
+    <!--  oncontextmenu="return false" onselectstart="return false" ondragstart="return false"-->
+    <input placeholder="Enter your ip, example: 0.0.0.0" />
+    <br />
+    <button onclick="scanIps()">Scan your network</button>
+    <br />
+    <span id="result"></span>
+    <br />
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+    <script>
+      let loading = false;
+
+      scanIps = async () => {
+        setResult("Loading...");
+        const value = $("input").val();
+        const validIps = await eel.scan_ips(value)();
+        console.log(validIps);
+        setResult(validIps);
+      };
+
+      const setResult = (result) => {
+        $("#result").html(result);
+      };
+    </script>
+  </body>
+</html>
